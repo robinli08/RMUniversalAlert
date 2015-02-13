@@ -32,6 +32,16 @@ static NSInteger const RMUniversalAlertFirstOtherButtonIndex = 2;
 
 @implementation RMUniversalAlert
 
++ (UIViewController *)rootViewControllerWhichCanPresentModalViewController {
+    UIViewController *vc = ([UIApplication sharedApplication].keyWindow.rootViewController)? : [(UIWindow *)[[UIApplication sharedApplication].windows firstObject] rootViewController];
+    
+    while (vc.presentedViewController) {
+        vc = vc.presentedViewController;
+    }
+    
+    return vc;
+}
+
 + (instancetype)showAlertInViewController:(UIViewController *)viewController
                                 withTitle:(NSString *)title
                                   message:(NSString *)message
